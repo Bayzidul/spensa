@@ -54,8 +54,9 @@ class GDALCalcNDVI:
                     ndvi = 0
                 else:
                     ndvi = ndvi_upper/ndvi_lower
-                    outputLine = outputLine + struct.pack('f',ndvi)
-            outDataset.GetRasterBand(1).WriteRaster(0,line,red_band.XSize,1,outputLine,buf_xsize = red_band.XSize,buf_ysize =1, buf_type=gdal.GDT_Float32)
+                outputLine = outputLine + struct.pack('f',ndvi)
+            #print struct.unpack('f'*len(red_tuple),outputLine)
+            outDataset.GetRasterBand(1).WriteRaster(0,line,red_band.XSize,1,outputLine,red_band.XSize,1,gdal.GDT_Float32)
             del outputLine
         
         print 'NVDI Calculated and Outputted to File'
